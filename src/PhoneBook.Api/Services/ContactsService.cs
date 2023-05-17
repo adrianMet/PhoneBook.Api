@@ -16,6 +16,18 @@ namespace PhoneBook.Api.Services
             return contact;
         }
 
+        public Contact GetByName(string name)
+        {
+            var contacts = Contacts.SingleOrDefault(x => x.Name == name);
+
+            if(contacts is null)
+            {
+                return default;
+            }
+
+            return contacts;
+        }
+
         public IEnumerable<Contact> GetAll() => Contacts;
 
         public int? Create(Contact contact)
