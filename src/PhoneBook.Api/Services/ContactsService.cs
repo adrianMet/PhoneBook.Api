@@ -20,7 +20,7 @@ namespace PhoneBook.Api.Services
 
         public int? Create(Contact contact)
         {
-            var isContactExist = Contacts.Any(x => x.Name == contact.Name && x.Number == contact.Number);
+            var isContactExist = Contacts.Any(x => x.Number == contact.Number);
 
             if(isContactExist)
             {
