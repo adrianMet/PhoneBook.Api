@@ -1,20 +1,22 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing.Template;
 using PhoneBook.Api.Entities;
 using PhoneBook.Api.Services;
 
 namespace PhoneBook.Api.Controllers
 {
     [ApiController]
-    [Route(template: "contacts")]
     public class ContactsController :ControllerBase
     {
         private readonly ContactsService _contactsService = new();
 
+        [Route("SearchAll")]
         [HttpGet]
         public ActionResult<IEnumerable<Contact>> Get() => Ok(_contactsService.GetAll());
 
-        [HttpGet(template:"{number:int}")]
+        [Route("SearchByNumber/{number}")]
+        [HttpGet]
         public ActionResult<Contact> Get(int number)
         {
             var contact = _contactsService.Get(number);
@@ -26,6 +28,20 @@ namespace PhoneBook.Api.Controllers
             return Ok(contact);
         }
 
+        [Route("SearchByName/{name}")]
+        [HttpGet]
+        public ActionResult<Contact> GetByName(string name)
+        {
+            var contacts = _contactsService.GetByName(name);
+            if (contacts is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(contacts);
+        }
+
+        [Route("AddContact")]
         [HttpPost]
         public ActionResult Post(Contact contact)
         {
