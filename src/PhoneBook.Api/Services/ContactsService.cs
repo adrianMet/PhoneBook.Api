@@ -41,7 +41,12 @@ namespace PhoneBook.Api.Services
             };
         }
 
-        public IEnumerable<Contact> GetAll() => Contacts;
+        public IEnumerable<ContactDto> GetAll() => Contacts.Select(x => new ContactDto
+        {
+            Name = x.Name,
+            Surname = x.Surname,
+            Number = x.Number
+        });
 
         public int? Create(CreateContact command)
         {
@@ -56,5 +61,22 @@ namespace PhoneBook.Api.Services
             Contacts.Add(contact);
             return contact.Number;
         }
+
+        public bool Delete(DeleteContact command)
+        {
+            var isContactExist = Contacts.SingleOrDefault(x => x.Number == command.Number);
+            var contact = GetContactToDelete(command.Number);
+
+            if (isContactExist is null)
+            {
+                return false;
+            }
+
+            contact.Delete(command.Number);
+            return true;
+        }
+
+        private Contact GetContactToDelete(int number) =>
+            Contacts.SingleOrDefault(x => x.Number == number);
     }
 }

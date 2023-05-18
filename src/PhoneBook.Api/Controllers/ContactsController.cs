@@ -53,6 +53,16 @@ namespace PhoneBook.Api.Controllers
             return CreatedAtAction(nameof(Get), new { number }, null);
         }
 
+        [HttpDelete("{number:int}")]
+        public ActionResult Delete(int number) 
+        {
+            if(_contactsService.Delete(new DeleteContact(number)))
+            {
+                return NoContent();
+            }
+
+            return NotFound();
+        }
         
     }
 }

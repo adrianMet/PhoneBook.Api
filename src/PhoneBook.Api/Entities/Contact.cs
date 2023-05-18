@@ -1,4 +1,5 @@
-﻿using PhoneBook.Api.Exceptions;
+﻿using PhoneBook.Api.Commands;
+using PhoneBook.Api.Exceptions;
 
 namespace PhoneBook.Api.Entities
 {
@@ -7,6 +8,7 @@ namespace PhoneBook.Api.Entities
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public int Number { get; private set; }
+        public List<Contact> Contacts; 
 
         public Contact(string name, string surname, int number)
         {
@@ -33,6 +35,13 @@ namespace PhoneBook.Api.Entities
             }
 
             Number = number;
+        }
+
+        public void Delete(int number)
+        {
+            var contactToRemove = Contacts.FirstOrDefault(x => x.Number == number);
+            
+            Contacts.Remove(contactToRemove);
         }
     }
 }
