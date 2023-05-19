@@ -17,10 +17,10 @@ namespace PhoneBook.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ContactDto>> Get() => Ok(_contactsService.GetAll());
 
-        [HttpGet("{number:int}")]
-        public ActionResult<ContactDto> Get(int number)
+        [HttpGet("{number:int}/{contactBookOwner}")]
+        public ActionResult<ContactDto> Get(int number, string contactBookOwner)
         {
-            var contact = _contactsService.Get(number);
+            var contact = _contactsService.Get(number, contactBookOwner);
             if(contact is null)
             {
                 return NotFound();
@@ -29,10 +29,10 @@ namespace PhoneBook.Api.Controllers
             return Ok(contact);
         }
 
-        [HttpGet("{name}")]
-        public ActionResult<ContactDto> GetByName(string name)
+        [HttpGet("{name}/{contactBookOwner}")]
+        public ActionResult<ContactDto> GetByName(string name, string contactBookOwner)
         {
-            var contacts = _contactsService.GetByName(name);
+            var contacts = _contactsService.GetByName(name, contactBookOwner);
             if (contacts is null)
             {
                 return NotFound();
@@ -53,16 +53,16 @@ namespace PhoneBook.Api.Controllers
             return CreatedAtAction(nameof(Get), new { number }, null);
         }
 
-        [HttpDelete("{number:int}")]
-        public ActionResult Delete(int number) 
+        [HttpDelete("{number:int}/{contactBookOwner}")]
+        public ActionResult Delete(int number, string contactBookOwner)
         {
-            if(_contactsService.Delete(new DeleteContact(number)))
+            if (_contactsService.Delete(new DeleteContact(number, contactBookOwner)))
             {
                 return NoContent();
             }
 
             return NotFound();
         }
-        
+
     }
 }
