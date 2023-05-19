@@ -1,4 +1,5 @@
-﻿using PhoneBook.Api.Exceptions;
+﻿using PhoneBook.Api.Commands;
+using PhoneBook.Api.Exceptions;
 
 namespace PhoneBook.Api.Entities
 {
@@ -7,12 +8,13 @@ namespace PhoneBook.Api.Entities
         public string Name { get; private set; }
         public string Surname { get; private set; }
         public int Number { get; private set; }
-
-        public Contact(string name, string surname, int number)
+        public string ContactBookOwner { get; }
+        public Contact(string name, string surname, int number, string contactBookOwner)
         {
             ChangeName(name);
             Surname = surname;
             ChangeNumber(number);
+            ContactBookOwner = contactBookOwner;
         }
 
         public void ChangeName(string name)
