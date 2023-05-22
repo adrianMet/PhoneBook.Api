@@ -2,7 +2,7 @@
 {
     public sealed class WrongNumberFormat : PhoneBookException
     {
-        public WrongNumberFormat() : base("Contact number format is incorrect.")
+        public WrongNumberFormat(int value) : base($"Contact number {value} format is incorrect.")
         {
 
         }
