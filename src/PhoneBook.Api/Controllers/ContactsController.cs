@@ -54,9 +54,9 @@ namespace PhoneBook.Api.Controllers
         }
 
         [HttpDelete("{number:int}/{contactBookOwner}")]
-        public ActionResult Delete(DeleteContact command)
+        public ActionResult Delete(int number, string contactBookOwner)
         {
-            if (_contactsService.Delete(new DeleteContact(command.Number, command.contactBookOwner)))
+            if (_contactsService.Delete(new DeleteContact(number, contactBookOwner)))
             {
                 return NoContent();
             }
