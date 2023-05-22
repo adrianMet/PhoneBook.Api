@@ -4,7 +4,7 @@
     {
         public string Value { get; } = Value;
 
-        public static implicit operator string(ContactBookOwner ContactBookOwner) => ContactBookOwner.Value;
-        public static implicit operator ContactBookOwner(string value) => new(value);
+        public static implicit operator string(ContactBookOwner ContactBookOwner) => ContactBookOwner?.Value;
+        public static implicit operator ContactBookOwner(string Value) => new(Value);
     }
 }
