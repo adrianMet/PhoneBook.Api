@@ -82,7 +82,27 @@ namespace PhoneBook.Api.Services
             return true;
         }
 
+        public bool UpdateContact(int number, string contactBookOwner, UpdateContact command)
+        {
+            var contactBooks = GetContactBookByBookOwner(contactBookOwner);
+            if (contactBooks is null)
+            {
+                return false;
+            }
+            var existingContact = contactBooks.Contacts.SingleOrDefault(x => x.ContactBookOwner == contactBookOwner && x.Number == number);
+            if (existingContact is null)
+            {
+                return false;
+            }
+
+            existingContact.ChangeSurname(command.Surname);
+            existingContact.ChangeNumber(command.Number);
+            existingContact.ChangeName(command.Name);
+            return true;
+        }
+
         private ContactBook GetContactBookByBookOwner(string contactBookOwner)
             => ContactBooks.SingleOrDefault(x => x.Contacts.Any(c => c.ContactBookOwner == contactBookOwner));
+
     }
 }
