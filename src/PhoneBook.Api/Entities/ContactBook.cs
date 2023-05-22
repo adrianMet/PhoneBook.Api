@@ -1,11 +1,12 @@
 ﻿using PhoneBook.Api.Exceptions;
+using PhoneBook.Api.ValueObjects;
 
 namespace PhoneBook.Api.Entities
 {
     public class ContactBook
     {
         private readonly HashSet<Contact> _contacts = new();
-        public string ContactBookOwner { get; }
+        public ContactBookOwner ContactBookOwner { get; }
         public IEnumerable<Contact> Contacts => _contacts;
 
         public ContactBook(string contactBookOwner)

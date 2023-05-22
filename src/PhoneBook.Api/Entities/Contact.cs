@@ -1,14 +1,15 @@
 ﻿using PhoneBook.Api.Commands;
 using PhoneBook.Api.Exceptions;
+using PhoneBook.Api.ValueObjects;
 
 namespace PhoneBook.Api.Entities
 {
     public class Contact
     {
-        public string Name { get; private set; }
-        public string Surname { get; private set; }
-        public int Number { get; private set; }
-        public string ContactBookOwner { get; }
+        public Name Name { get; private set; }
+        public Surname Surname { get; private set; }
+        public Number Number { get; private set; }
+        public ContactBookOwner ContactBookOwner { get; }
         public Contact(string name, string surname, int number, string contactBookOwner)
         {
             ChangeName(name);
@@ -17,24 +18,8 @@ namespace PhoneBook.Api.Entities
             ContactBookOwner = contactBookOwner;
         }
 
-        public void ChangeName(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new EmptyContactName();
-            }
+        public void ChangeName(Name name) => Name = name;
 
-            Name = name;
-        }
-
-        public void ChangeNumber(int number)
-        {
-            if (number.ToString().Length != 9)
-            {
-                throw new WrongNumberFormat();
-            }
-
-            Number = number;
-        }
+        public void ChangeNumber(int number) => Number = number;
     }
 }
