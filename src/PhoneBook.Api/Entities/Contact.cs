@@ -13,13 +13,14 @@ namespace PhoneBook.Api.Entities
         public Contact(string name, string surname, int number, string contactBookOwner)
         {
             ChangeName(name);
-            Surname = surname;
+            ChangeSurname(surname);
             ChangeNumber(number);
             ContactBookOwner = contactBookOwner;
         }
 
         public void ChangeName(Name name) => Name = name;
 
-        public void ChangeNumber(int number) => Number = number;
+        public void ChangeNumber(Number number) => Number = number;
+        public void ChangeSurname(Surname surname) => Surname = surname;
     }
 }

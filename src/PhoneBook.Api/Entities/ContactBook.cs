@@ -34,8 +34,6 @@ namespace PhoneBook.Api.Entities
                 throw new ContactDoesntExists();
             }
             _contacts.Remove(contact);
-
-
         }
     }
 }
