@@ -54,13 +54,23 @@ namespace PhoneBook.Api.Controllers
         }
 
         [HttpDelete("{number:int}/{contactBookOwner}")]
-        public ActionResult Delete(int number, string contactBookOwner)
+        public ActionResult Delete(DeleteContact command)
         {
-            if (_contactsService.Delete(new DeleteContact(number, contactBookOwner)))
+            if (_contactsService.Delete(new DeleteContact(command.Number, command.contactBookOwner)))
             {
                 return NoContent();
             }
 
+            return NotFound();
+        }
+
+        [HttpPut("{number:int}/{contactBookOwner}")]
+        public ActionResult Update(int number, string contactBookOwner, UpdateContact command)
+        {
+            if(_contactsService.UpdateContact(number, contactBookOwner, new UpdateContact(command.Name, command.Surname, command.Number, command.contactBookOwner)))
+            {
+                return NoContent();
+            }
             return NotFound();
         }
 
