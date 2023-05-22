@@ -14,7 +14,7 @@ namespace PhoneBook.Api.Services
 
         public ContactDto Get(int number, string contactBookOwner)
         {
-            var contact = GetAll().SingleOrDefault(x => x.Number == number && x.ContactBookOwner == contactBookOwner);
+            var contact = ContactBooks.SelectMany(x => x.Contacts).SingleOrDefault(x => x.Number == number && x.ContactBookOwner == contactBookOwner);
             if(contact is null)
             {
                 return default;
@@ -30,7 +30,7 @@ namespace PhoneBook.Api.Services
 
         public ContactDto GetByName(string name, string contactBookOwner)
         {
-            var contacts = GetAll().SingleOrDefault(x => x.Name == name && x.ContactBookOwner == contactBookOwner);
+            var contacts = ContactBooks.SelectMany(x => x.Contacts).SingleOrDefault(x => x.Name == name && x.ContactBookOwner == contactBookOwner);
 
             if(contacts is null)
             {
